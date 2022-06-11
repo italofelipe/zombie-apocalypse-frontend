@@ -1,44 +1,29 @@
 import Head from "next/head";
-import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import SelectedSurvivor from "../components/SelectedSurvivor";
+import SurvivorsList from "../components/SurvivorsList";
+import useFetch from "../hooks/useFetch";
 
-import { axiosGet } from "../services";
-import { ImageContainer, Main, PageTitle, Text } from "../styles/styles";
+import { Main, PageInnerContent, PageTitle, Text } from "../styles/styles";
 
 const Home = () => {
-  const [error, setError] = useState(false);
-
+  const { data, error, loading } = useFetch();
   const [survivorsList, setSurvivors] = useState<Survivors[]>([]);
-
-  const handleGet = useCallback(() => {
-    console.log("Chamou a API", survivorsList);
-    axiosGet<
-      [
-        {
-          id: string;
-          name: string;
-          skills: Skills[];
-          isInfected: boolean;
-          gender: "male" | "female";
-        }
-      ]
-    >({
-      path: "/survivors",
-    })
-      .then((response) => {
-        console.log("Response", response);
-        setSurvivors([...response.data]);
-        console.log("Chamou a API", survivorsList);
-      })
-      .catch((err) => {
-        console.log("Caiu no catch", err);
-
-        return setError(error);
-      });
-  }, [error]);
-
+  const [selectedSurvivor, setSelectedSuvivor] = useState<Survivors | null>(
+    null
+  );
+  const route = useRouter();
   useEffect(() => {
-    handleGet();
-  }, [handleGet]);
+    console.log("Resultado do custom hook", data);
+    setSurvivors(data);
+  }, [data]);
+
+  const handleSelectSurvivor = (survivor: Survivors) => {
+    console.log("Skill", survivor.skills);
+    route.push(`/?survivor=${survivor.name}`, undefined, { shallow: true });
+    setSelectedSuvivor(survivor);
+  };
 
   return (
     <>
@@ -52,32 +37,19 @@ const Home = () => {
       </Head>
 
       <Main>
-        <PageTitle>Zombie Apocalypse</PageTitle>
-        <Text alignment="center" color="orange">
-          A list of survivors in a post-apocalyptic world. You can see below
-          wether people you know is still alive or...became mindless zombies!
-        </Text>
+        <SurvivorsList
+          survivors={survivorsList}
+          onSelect={(survivor) => handleSelectSurvivor(survivor)}
+        />
+        <PageInnerContent>
+          <PageTitle>Zombie Apocalypse</PageTitle>
+          <Text alignment="center" color="orange">
+            A list of survivors in a post-apocalyptic world. You can see below
+            wether people you know is still alive or...became mindless zombies!
+          </Text>
+        {selectedSurvivor && <SelectedSurvivor survivor={selectedSurvivor} />}
+        </PageInnerContent>
 
-        {survivorsList.map((survivor) => (
-          <>
-            <h2>Survivor {survivor.name}</h2>
-          </>
-        ))}
-
-        <ImageContainer>
-          {/*  <Image
-            src={AskImage}
-            width={180}
-            height={300}
-            alt={"Imagem de uma pessoa pedindo algo"}
-          />
-          <Image
-            src={BookImage}
-            width={180}
-            height={300}
-            alt={"Imagem de um livro"}
-          /> */}
-        </ImageContainer>
       </Main>
     </>
   );
