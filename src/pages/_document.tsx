@@ -10,10 +10,7 @@ const Document = () => {
           href="https://fonts.gstatic.com"
           crossOrigin=""
         />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap"
-          rel="stylesheet"
-        ></link>
+       <link href="https://fonts.googleapis.com/css2?family=Holtwood+One+SC&display=swap" rel="stylesheet" />
       </Head>
       <body>
         <Main />

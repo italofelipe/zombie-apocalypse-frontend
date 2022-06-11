@@ -4,8 +4,7 @@ import { mediaQueries } from "./mediaQueries";
 
 const Main = styled.main`
   display: flex;
-  flex-flow: column;
-  align-items: center;
+  flex-flow: row;
   padding: 3rem 15px;
   background: #9575cd;
 
@@ -167,6 +166,14 @@ const Button = styled.button`
   }
 `;
 
+const PageInnerContent = styled.section`
+  width: 70vw;
+  height: 100vh;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+`;
+
 export {
   Button,
   Form,
@@ -176,6 +183,7 @@ export {
   InputLabel,
   ImageContainer,
   Main,
+  PageInnerContent,
   PageTitle,
   Text,
 };
