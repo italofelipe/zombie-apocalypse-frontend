@@ -6,13 +6,15 @@ const Main = styled.main`
   display: flex;
   flex-flow: row;
   padding: 3rem 15px;
-  background: #9575cd;
+  background: #7b1fa2;
 
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.mdMin}) {
     width: 100vw;
     height: 100vh;
     padding: 3rem 15px;
     border: 1px solid #ccc;
+    display: flex;
+    flex-flow: column;
   }
 
   width: 100vw;
@@ -40,14 +42,19 @@ const Text = styled.p<IText>`
       : color === "orange"
       ? colors.orangeOne
       : colors.purpleOne};
+
+  &:hover {
+    cursor: pointer;
+    text-shadow: 0px 0px 15px ${colors.redOne}
+  }
 `;
 const Form = styled.form`
-  border: 1px solid #ccc;
   display: flex;
   flex-flow: column;
   align-items: center;
   justify-content: center;
   height: auto;
+  margin: 10px 0;
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.xsMax}) {
     width: 100%;
 
@@ -58,8 +65,8 @@ const Form = styled.form`
     padding: 1rem 3rem;
   }
   @media (min-width: ${mediaQueries.mdMin}) and (max-width: ${mediaQueries.mdMax}) {
-    width: 80%;
-    padding: 1rem 0;
+    width: 100%;
+    align-items: normal;
   }
   @media (min-width: ${mediaQueries.lgMin}) {
     width: 75%;
@@ -80,10 +87,13 @@ const FormContainer = styled.div`
   flex-flow: row;
   width: 100%;
   margin: 0 0 1rem;
+  justify-content: space-around;
+  align-items: center;
 
   @media (min-width: ${mediaQueries.mdMin}) and (max-width: ${mediaQueries.mdMax}) {
     &:nth-child(2) {
-      justify-content: start;
+      justify-content: space-between;
+      
     }
   }
 `;
@@ -125,9 +135,10 @@ const InputLabel = styled.label`
 const Input = styled.input`
   background: none;
   border: none;
-  border-bottom: 1px solid #9e9e9e;
+  border-bottom: 1px solid ${colors.greenOne};
   margin: 15px 0;
   padding: 0.5em;
+  width: 75%;
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.xsMax}) {
     width: 55vw;
   }
@@ -144,19 +155,22 @@ const Input = styled.input`
   }
 
   &:focus {
-    border-bottom: 2px solid #6c63ff;
+    border-bottom: 2px solid ${colors.greenOne};
     border: none;
   }
 `;
 
 const Button = styled.button`
   padding: 1rem 1.5rem;
-  background-color: #6c63ff;
+  background-color: ${colors.greenOne};
   border: none;
-  color: #f5f5f5;
+  color: ${colors.redOne};
   font-weight: bold;
   &:hover {
-    box-shadow: 1px 2px 7px #6c63bb;
+    box-shadow: 1px 2px 17px ${colors.redOne};
+    border: 2px solid ${colors.greenOne};
+    background: ${colors.purpleOne};
+    color: white;
     cursor: pointer;
   }
   &:disabled {
