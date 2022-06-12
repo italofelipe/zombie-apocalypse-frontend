@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import SelectedSurvivor from "../components/SelectedSurvivor";
 import SurvivorsList from "../components/SurvivorsList";
 import useFetch from "../hooks/useFetch";
-
 import { Main, PageInnerContent, PageTitle, Text } from "../styles/styles";
+
 
 const Home = () => {
   const { data, error, loading } = useFetch();
@@ -15,12 +15,10 @@ const Home = () => {
   );
   const route = useRouter();
   useEffect(() => {
-    console.log("Resultado do custom hook", data);
     setSurvivors(data);
   }, [data]);
 
   const handleSelectSurvivor = (survivor: Survivors) => {
-    console.log("Skill", survivor.skills);
     route.push(`/?survivor=${survivor.name}`, undefined, { shallow: true });
     setSelectedSuvivor(survivor);
   };
@@ -42,14 +40,18 @@ const Home = () => {
           onSelect={(survivor) => handleSelectSurvivor(survivor)}
         />
         <PageInnerContent>
-          <PageTitle>Zombie Apocalypse</PageTitle>
-          <Text alignment="center" color="orange">
-            A list of survivors in a post-apocalyptic world. You can see below
-            wether people you know is still alive or...became mindless zombies!
-          </Text>
-        {selectedSurvivor && <SelectedSurvivor survivor={selectedSurvivor} />}
+          {!selectedSurvivor && (
+            <div>
+              <PageTitle>Zombie Apocalypse</PageTitle>
+              <Text alignment="center" color="orange">
+                A list of survivors in a post-apocalyptic world. You can see
+                below wether people you know is still alive or...became mindless
+                zombies!
+              </Text>
+            </div>
+          )}
+          {selectedSurvivor && <SelectedSurvivor survivor={selectedSurvivor} />}
         </PageInnerContent>
-
       </Main>
     </>
   );

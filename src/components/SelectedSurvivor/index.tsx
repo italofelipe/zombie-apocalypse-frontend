@@ -1,3 +1,6 @@
+import { Text } from "../../styles/styles";
+
+
 type SelectedSurvivorProps = {
   survivor: Survivors;
 };
@@ -11,8 +14,8 @@ const SelectedSurvivor = ({ survivor }: SelectedSurvivorProps) => {
         <p>Skills:</p>{" "}
         {survivor.skills.map((skill) => (
           <div key={skill.rate}>
-            <p>{skill.skill}</p>
-            <p>{skill.rate}</p>
+            <Text alignment="center" color="green">{skill.skill}</Text>
+            <Text alignment="center" color="green">{skill.rate}</Text>
           </div>
         ))}
       </div>
