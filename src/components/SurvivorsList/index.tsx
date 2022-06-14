@@ -30,7 +30,6 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
     const filter = survivors.find((survivor) =>
       survivor.name.toLocaleLowerCase().includes(searchInput)
     );
-    console.log("Filtro", filter);
     setFilteredSurvivors(filter!);
     if (searchInput === "") resetInputAndFilter();
     return filter;
@@ -45,7 +44,7 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
       <Form onSubmit={(e) => handleSubmit(e)}>
         <InputLabel htmlFor="search-survivor">Search</InputLabel>
         <FormContainer>
-        <Input
+          <Input
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             onBlur={() => filterSurvivor()}
@@ -55,11 +54,13 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
             width={"1rem"}
             icon={faTrash}
             onClick={() => resetInputAndFilter()}
+            title="Limpar busca"
           />
-          
         </FormContainer>
 
-        <Button type="submit">Procurar</Button>
+        <Button disabled={!searchInput} type="submit">
+          Procurar
+        </Button>
       </Form>
       {survivors && !filteredSurvivors ? (
         survivors.map((survivor) => (
