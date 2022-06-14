@@ -42,11 +42,6 @@ const Text = styled.p<IText>`
       : color === "orange"
       ? colors.orangeOne
       : colors.purpleOne};
-
-  &:hover {
-    cursor: pointer;
-    text-shadow: 0px 0px 15px ${colors.redOne}
-  }
 `;
 const Form = styled.form`
   display: flex;
@@ -69,8 +64,11 @@ const Form = styled.form`
     align-items: normal;
   }
   @media (min-width: ${mediaQueries.lgMin}) {
-    width: 75%;
-    padding: 1rem 0;
+    width: 80%;
+    button {
+      align-self: flex-start;
+      margin: 10px 0;
+    }
   }
 `;
 
@@ -86,14 +84,20 @@ const FormContainer = styled.div`
   display: flex;
   flex-flow: row;
   width: 100%;
-  margin: 0 0 1rem;
   justify-content: space-around;
   align-items: center;
+
+  svg {
+    color: ${colors.greenOne};
+    &:hover {
+      cursor: pointer;
+      color: ${colors.redOne};
+    }
+  }
 
   @media (min-width: ${mediaQueries.mdMin}) and (max-width: ${mediaQueries.mdMax}) {
     &:nth-child(2) {
       justify-content: space-between;
-      
     }
   }
 `;
@@ -165,8 +169,8 @@ const Button = styled.button`
   background-color: ${colors.greenOne};
   border: none;
   color: ${colors.redOne};
-  font-weight: bold;
-  &:hover {
+  font-family: "Holtwood One SC", serif;
+  &:hover:enabled {
     box-shadow: 1px 2px 17px ${colors.redOne};
     border: 2px solid ${colors.greenOne};
     background: ${colors.purpleOne};
@@ -177,12 +181,13 @@ const Button = styled.button`
     cursor: default;
     background-color: #bdbdbd;
     box-shadow: none;
+    color: white;
   }
 `;
 
 const PageInnerContent = styled.section`
   width: 70vw;
-  height: 100vh;
+  height: auto;
   align-items: center;
   display: flex;
   flex-direction: column;

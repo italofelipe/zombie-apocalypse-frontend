@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { colors } from "../../styles/colors";
 import { mediaQueries } from "../../styles/mediaQueries";
 
 const Aside = styled.aside`
   width: 40vw;
-  height: 100vw;
+  height: auto;
   display: flex;
   flex-flow: column;
   align-items: baseline;
@@ -14,10 +15,13 @@ const Aside = styled.aside`
 
 const SurvivorsItem = styled.div`
   margin: 10px 0;
-`
+  p {
+    &:hover {
+      cursor: pointer;
+      text-shadow: 0px 0px 15px ${colors.redOne};
+    }
+  }
+`;
 
-export {
-  Aside,
-  SurvivorsItem
-};
+export { Aside, SurvivorsItem };
 
