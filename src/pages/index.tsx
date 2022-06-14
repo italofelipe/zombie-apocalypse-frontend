@@ -1,14 +1,14 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import SelectedSurvivor from "../components/SelectedSurvivor";
 import SurvivorsList from "../components/SurvivorsList";
 import useFetch from "../hooks/useFetch";
 import { Main, PageInnerContent, PageTitle, Text } from "../styles/styles";
 
-
 const Home = () => {
-  const { data, error, loading } = useFetch();
+  const { data, error, loading, reFetch } = useFetch();
+
   const [survivorsList, setSurvivors] = useState<Survivors[]>([]);
   const [selectedSurvivor, setSelectedSuvivor] = useState<Survivors | null>(
     null
@@ -16,12 +16,16 @@ const Home = () => {
   const route = useRouter();
   useEffect(() => {
     setSurvivors(data);
-  }, [data]);
+  }, [data, selectedSurvivor, reFetch]);
 
   const handleSelectSurvivor = (survivor: Survivors) => {
-    route.push(`/?survivor=${survivor.name}`, undefined, { shallow: true });
     setSelectedSuvivor(survivor);
+    route.push(`/?survivor=${survivor.name}`, undefined, { shallow: true });
   };
+
+  const handleRefetch = useCallback(() => {
+    reFetch();
+  }, [reFetch]);
 
   return (
     <>
@@ -50,7 +54,12 @@ const Home = () => {
               </Text>
             </div>
           )}
-          {selectedSurvivor && <SelectedSurvivor survivor={selectedSurvivor} />}
+          {selectedSurvivor && (
+            <SelectedSurvivor
+              onInfectSurvivor={() => handleRefetch()}
+              survivor={selectedSurvivor!}
+            />
+          )}
         </PageInnerContent>
       </Main>
     </>

@@ -21,6 +21,32 @@ const useFetch = () => {
       path: "/survivors",
     })
       .then((response) => {
+        const newData = [...response.data];
+        setData(Object.assign([], newData));
+      })
+      .catch((err) => {
+        setError(error);
+      })
+      .finally(() => setLoading(false));
+  }, [error]);
+
+  const reFetch = () => {
+    setLoading(true);
+
+    axiosGet<
+      [
+        {
+          id: string;
+          name: string;
+          skills: Skills[];
+          isInfected: boolean;
+          gender: "male" | "female";
+        }
+      ]
+    >({
+      path: "/survivors",
+    })
+      .then((response) => {
         setData([...response.data]);
       })
       .catch((err) => {
@@ -28,8 +54,8 @@ const useFetch = () => {
         setError(error);
       })
       .finally(() => setLoading(false));
-  }, [error]);
-  return { data, error, loading };
+  };
+  return { data, error, loading, reFetch };
 };
 
 export default useFetch;
