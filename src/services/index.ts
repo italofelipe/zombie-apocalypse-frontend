@@ -12,5 +12,20 @@ const axiosGet = <T>(requestData: AxiosHandler["config"]) => {
   );
 };
 
-export { axiosGet };
+const axiosPut = <T>(requestData: AxiosHandler) => {
+  return axios.put<T>(
+    `${
+      env
+        ? "http://localhost:4000"
+        : "https://zombie-apocalypse-backend.herokuapp.com"
+    }${requestData.config.path}/${
+      requestData.config.params ? requestData.config.params : ""
+    }`,
+    {
+      ...requestData.body,
+    }
+  );
+};
+
+export { axiosGet, axiosPut };
 

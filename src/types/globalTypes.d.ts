@@ -3,7 +3,9 @@ type AxiosHandler = {
     path: "/survivors" | "/survivor";
     params?: string;
   };
+   body: Survivors;
 };
+
 
 type Skills = {
   skill: Skill;
