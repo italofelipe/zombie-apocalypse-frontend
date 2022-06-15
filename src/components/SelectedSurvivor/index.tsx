@@ -3,7 +3,13 @@ import { useEffect, useState } from "react";
 import { axiosPut } from "../../services";
 import { InputLabel, Text } from "../../styles/styles";
 import Modal from "../Modal/Modal";
-import { Checkbox, SkillsContainer, SurvivorCard, SurvivorStats } from "./styles";
+import {
+  CardLower,
+  Checkbox,
+  SkillsContainer,
+  SurvivorCard,
+  SurvivorStats
+} from "./styles";
 const MaleImage = "/assets/man_image.svg";
 const FemaleImage = "/assets/woman_image.svg";
 const ZombieImage = "/assets/zombie_image.svg";
@@ -38,10 +44,10 @@ const SelectedSurvivor = ({
       },
     })
       .then((response) => {
-        onInfectSurvivor();
+        setModalOpened(true);
         setModalContext("success");
         setInfectedSurvivor(response.data);
-        setModalOpened(true);
+        onInfectSurvivor();
       })
       .catch(() => {
         setModalOpened(true);
@@ -51,8 +57,6 @@ const SelectedSurvivor = ({
   useEffect(() => {
     setInfectedSurvivor(survivor);
   }, [survivor]);
-
-
   return (
     <>
       {infectedSurvivor && (
@@ -69,43 +73,47 @@ const SelectedSurvivor = ({
                 : MaleImage
             }
             alt="Image of your survivor"
-            
             layout="responsive"
             width={400}
             height={400}
           />
-          <p>Skills:</p>
+          <Text alignment="center" color="green">Skills:</Text>
           <SkillsContainer>
-             {infectedSurvivor.skills.map((skill, i) => (
-            <SurvivorStats key={i}>
-              <Text alignment="center" color="green">
-                {skill.skill}
-              </Text>
-              <Text alignment="center" color="green">
-                {skill.rate}
-              </Text>
-            </SurvivorStats>
-          ))}
+            {infectedSurvivor.skills.map((skill, i) => (
+              <SurvivorStats key={i}>
+                <Text alignment="center" color="green">
+                  {skill.skill}
+                </Text>
+                <Text alignment="center" color="green">
+                  {skill.rate}
+                </Text>
+              </SurvivorStats>
+            ))}
           </SkillsContainer>
-         
 
-          {!infectedSurvivor.isInfected && (
-            <InputLabel>Deseja infectar {infectedSurvivor.name}?</InputLabel>
-          )}
-          <Checkbox
-            disabled={infectedSurvivor.isInfected}
-            type="checkbox"
-            onChange={() => handleInfect(infectedSurvivor)}
-            checked={infectedSurvivor?.isInfected}
-            readOnly={infectedSurvivor?.isInfected}
-          />
-          <Modal
-            context={modalContext}
-            isOpen={modalOpened}
-            handleDisplay={() => setModalOpened(!modalOpened)}
-          />
+          <CardLower>
+            {!infectedSurvivor.isInfected ? (
+              <InputLabel>Deseja infectar {infectedSurvivor.name}?</InputLabel>
+            ) : (
+              <Text alignment="left" color="green">
+                Infectado!
+              </Text>
+            )}
+            <Checkbox
+              disabled={infectedSurvivor.isInfected}
+              type="checkbox"
+              onChange={() => handleInfect(infectedSurvivor)}
+              checked={infectedSurvivor?.isInfected}
+              readOnly={infectedSurvivor?.isInfected}
+            />
+          </CardLower>
         </SurvivorCard>
       )}
+      <Modal
+        context={modalContext}
+        isOpen={modalOpened}
+        handleDisplay={() => setModalOpened(!modalOpened)}
+      />
     </>
   );
 };

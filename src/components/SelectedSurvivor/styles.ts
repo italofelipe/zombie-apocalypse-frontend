@@ -16,8 +16,9 @@ const SurvivorCard = styled.div`
   border: 1px solid ${colors.purpleTwo};
   padding: 1rem;
   border-radius: 8px;
+  max-height: 80vh;
   > p {
-    margin-top: 2rem;
+    margin: 2rem 0;
   }
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.mdMin}) {
     width: 100%;
@@ -57,7 +58,7 @@ const SkillsContainer = styled.div`
   display: flex;
   width: 100%;
   margin-top: 2rem;
-    flex-flow: column;
+  flex-flow: column;
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.mdMin}) {
   }
 `;
@@ -70,3 +71,4 @@ export {
   SurvivorStats,
   NextImage,
 };
+
