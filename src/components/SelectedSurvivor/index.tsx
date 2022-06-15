@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { axiosPut } from "../../services";
 import { InputLabel, Text } from "../../styles/styles";
 import Modal from "../Modal/Modal";
-import { Checkbox, SurvivorCard, SurvivorStats } from "./styles";
+import { Checkbox, SkillsContainer, SurvivorCard, SurvivorStats } from "./styles";
 const MaleImage = "/assets/man_image.svg";
 const FemaleImage = "/assets/woman_image.svg";
 const ZombieImage = "/assets/zombie_image.svg";
@@ -68,11 +68,14 @@ const SelectedSurvivor = ({
                 : MaleImage
             }
             alt="Image of your survivor"
+            
+            layout="responsive"
             width={400}
             height={400}
           />
           <p>Skills:</p>
-          {infectedSurvivor.skills.map((skill) => (
+          <SkillsContainer>
+             {infectedSurvivor.skills.map((skill) => (
             <SurvivorStats key={skill.rate}>
               <Text alignment="center" color="green">
                 {skill.skill}
@@ -82,6 +85,8 @@ const SelectedSurvivor = ({
               </Text>
             </SurvivorStats>
           ))}
+          </SkillsContainer>
+         
 
           {!infectedSurvivor.isInfected && (
             <InputLabel>Deseja infectar {infectedSurvivor.name}?</InputLabel>
