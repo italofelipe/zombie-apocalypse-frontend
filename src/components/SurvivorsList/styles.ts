@@ -8,9 +8,16 @@ const Aside = styled.aside`
   display: flex;
   flex-flow: column;
   align-items: baseline;
+  overflow: auto;
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.mdMin}) {
     width: 100%;
-    overflow: auto;
+    max-height: 20vh;
+  }
+
+  > p {
+    @media (min-width: ${mediaQueries.lgMin}) {
+      max-width: 76%;
+    }
   }
 `;
 

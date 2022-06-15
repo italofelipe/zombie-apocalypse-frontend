@@ -21,6 +21,8 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
   const [searchFilteredSurvivors, setSearchFilteredSurvivors] =
     useState<Survivors | null>(null);
   const [filterByInfected, setFilterByInfected] = useState(false);
+  const [searchFilteredSurvivorsError, setSearchFilteredSurvivorsError] =
+    useState(false);
 
   const resetInputAndFilter = () => {
     setSearchInput("");
@@ -32,10 +34,13 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
    * @returns A survivor, based on user's input
    */
   const filterSurvivor = () => {
+    setSearchFilteredSurvivorsError(false)
     const filter = survivors.find((survivor) =>
-      survivor.name.toLocaleLowerCase().includes(searchInput)
+      survivor.name.toLocaleLowerCase().includes(searchInput.toLowerCase())
     );
-    setSearchFilteredSurvivors(filter!);
+    filter
+      ? setSearchFilteredSurvivors(filter!)
+      : setSearchFilteredSurvivorsError(true);
     if (searchInput === "") resetInputAndFilter();
     return filter;
   };
@@ -110,6 +115,7 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
             onBlur={() => filterSurvivor()}
             id="search-survivor"
             placeholder="Sobrevivente da Silva"
+            data-testid="search-survivor-input"
           />
           <FontAwesomeIcon
             width={"1rem"}
@@ -119,11 +125,23 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
           />
         </FormContainer>
 
-        <Button disabled={!searchInput} type="submit">
+        <Button
+          disabled={!searchInput}
+          type="submit"
+          data-testid="search-button"
+        >
           Procurar
         </Button>
       </Form>
-      <>{handleFilters()}</>
+      <>
+        {searchFilteredSurvivorsError && (
+          <Text alignment="left" color="orange" size="md">
+            Não foi encontrado nenhum sobrevivente com esse nome. Exibindo todos
+            os sobreviventes encontrados.
+          </Text>
+        )}
+        {handleFilters()}
+      </>
     </Aside>
   );
 };
