@@ -25,6 +25,7 @@ const PageTitle = styled.h1`
   font-size: 1.5rem;
   line-height: 1.5;
   color: ${colors.greenOne};
+  text-align: center;
 `;
 
 type IText = {
@@ -146,9 +147,9 @@ const FormInner = styled.div<IFormInner>`
 
 const InputLabel = styled.label`
   color: ${colors.orangeOne};
+  align-self: baseline;
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.xsMax}) {
     font-size: 0.75rem;
-    align-self: baseline;
   }
   margin: 0 1rem;
 `;
@@ -211,6 +212,10 @@ const PageInnerContent = styled.section`
   align-items: center;
   display: flex;
   flex-direction: column;
+  overflow: auto;
+  @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.mdMin}) {
+    width: 100%;
+  }
 `;
 
 export {
