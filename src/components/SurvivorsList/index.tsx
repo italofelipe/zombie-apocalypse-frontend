@@ -9,7 +9,8 @@ import {
   InputLabel,
   Text
 } from "../../styles/styles";
-import { Aside, SurvivorsItem } from "./styles";
+import Switch from "../Switch";
+import { Aside, SurvivorsItem, SwitchContainer } from "./styles";
 type SurvivorsListProps = {
   survivors: Survivors[];
   onSelect: (survivor: Survivors) => void;
@@ -17,20 +18,24 @@ type SurvivorsListProps = {
 
 const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
   const [searchInput, setSearchInput] = useState<string>("");
-  const [filteredSurvivors, setFilteredSurvivors] = useState<Survivors | null>(
-    null
-  );
+  const [searchFilteredSurvivors, setSearchFilteredSurvivors] =
+    useState<Survivors | null>(null);
+  const [filterByInfected, setFilterByInfected] = useState(false);
 
   const resetInputAndFilter = () => {
     setSearchInput("");
-    setFilteredSurvivors(null);
+    setSearchFilteredSurvivors(null);
   };
 
+  /**
+   *
+   * @returns A survivor, based on user's input
+   */
   const filterSurvivor = () => {
     const filter = survivors.find((survivor) =>
       survivor.name.toLocaleLowerCase().includes(searchInput)
     );
-    setFilteredSurvivors(filter!);
+    setSearchFilteredSurvivors(filter!);
     if (searchInput === "") resetInputAndFilter();
     return filter;
   };
@@ -39,16 +44,72 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
     e.preventDefault();
     filterSurvivor();
   };
+
+  /**
+   * @returns A piece of UI based on what filters are active.
+   */
+  const handleFilters = () => {
+    if (!searchFilteredSurvivors && !filterByInfected) {
+      return survivors.map((survivor) => (
+        <SurvivorsItem
+          data-testid={`survivor-item-${survivor.id}`}
+          key={survivor.id}
+          onClick={() => onSelect(survivor)}
+        >
+          <Text alignment="center" color="green">
+            {survivor.name}
+          </Text>
+        </SurvivorsItem>
+      ));
+    } else if (searchFilteredSurvivors && !filterByInfected) {
+      return (
+        <SurvivorsItem onClick={() => onSelect(searchFilteredSurvivors!)}>
+          <Text alignment="center" color="green">
+            {searchFilteredSurvivors!.name}
+          </Text>
+        </SurvivorsItem>
+      );
+    } else {
+      return survivors
+        .filter((survivor) => survivor.isInfected)
+        .map((infectedSurvivor) => (
+          <SurvivorsItem
+            data-testid={`survivor-item-${infectedSurvivor.id}`}
+            key={infectedSurvivor.id}
+            onClick={() => onSelect(infectedSurvivor)}
+          >
+            <Text alignment="center" color="green">
+              {infectedSurvivor.name}
+            </Text>
+          </SurvivorsItem>
+        ));
+    }
+  };
+
+  const handleFilterByDead = () => {
+    resetInputAndFilter();
+    setFilterByInfected(!filterByInfected);
+  };
   return (
     <Aside>
+      <SwitchContainer>
+        <Switch
+          isChecked={filterByInfected}
+          onCheck={() => handleFilterByDead()}
+        />
+        <Text size="lg" alignment="right" color="orange">
+          Infected
+        </Text>
+      </SwitchContainer>
       <Form onSubmit={(e) => handleSubmit(e)}>
-        <InputLabel htmlFor="search-survivor">Search</InputLabel>
+        <InputLabel htmlFor="search-survivor">Procurar por nome</InputLabel>
         <FormContainer>
           <Input
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             onBlur={() => filterSurvivor()}
             id="search-survivor"
+            placeholder="Sobrevivente da Silva"
           />
           <FontAwesomeIcon
             width={"1rem"}
@@ -62,25 +123,7 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
           Procurar
         </Button>
       </Form>
-      {survivors && !filteredSurvivors ? (
-        survivors.map((survivor) => (
-          <SurvivorsItem
-            data-testid={`survivor-item-${survivor.id}`}
-            key={survivor.id}
-            onClick={() => onSelect(survivor)}
-          >
-            <Text alignment="center" color="green">
-              {survivor.name}
-            </Text>
-          </SurvivorsItem>
-        ))
-      ) : (
-        <SurvivorsItem onClick={() => onSelect(filteredSurvivors!)}>
-          <Text alignment="center" color="green">
-            {filteredSurvivors!.name}
-          </Text>
-        </SurvivorsItem>
-      )}
+      <>{handleFilters()}</>
     </Aside>
   );
 };
