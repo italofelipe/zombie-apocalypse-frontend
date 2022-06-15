@@ -98,12 +98,15 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
   return (
     <Aside>
       <SwitchContainer>
+      <Text size="lg" alignment="right" color="orange">
+          Todos
+        </Text>
         <Switch
           isChecked={filterByInfected}
           onCheck={() => handleFilterByDead()}
         />
         <Text size="lg" alignment="right" color="orange">
-          Infected
+          Infectados
         </Text>
       </SwitchContainer>
       <Form onSubmit={(e) => handleSubmit(e)}>

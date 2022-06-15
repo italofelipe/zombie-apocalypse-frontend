@@ -33,15 +33,17 @@ const SurvivorsItem = styled.div`
 const SwitchContainer = styled.div`
   display: flex;
   flex-flow: row;
-  width: 27vw;
+  width: 70%;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
+  margin-left: 0.5rem;
   label {
     margin-right: 2vw;
   }
 
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.mdMin}) {
     width: 76vw;
+    margin-left: 3.5vw;
   }
 `;
 
