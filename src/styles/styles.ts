@@ -151,7 +151,6 @@ const InputLabel = styled.label`
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.xsMax}) {
     font-size: 0.75rem;
   }
-  margin: 0 1rem;
 `;
 const Input = styled.input`
   background: none;

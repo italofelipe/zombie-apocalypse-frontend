@@ -41,7 +41,13 @@ const Checkbox = styled.input`
   height: 50px;
   accent-color: ${colors.greenOne};
 `;
-
+const CardLower = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 2rem;
+  flex-flow: row;
+  justify-content: space-between;
+`;
 const NextImage = styled(Image)`
   max-width: 50vw !important;
   max-height: 50vh !important;
@@ -56,6 +62,7 @@ const SkillsContainer = styled.div`
   }
 `;
 export {
+  CardLower,
   Checkbox,
   SkillsContainer,
   SurvivorCard,

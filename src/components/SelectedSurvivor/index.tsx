@@ -52,6 +52,7 @@ const SelectedSurvivor = ({
     setInfectedSurvivor(survivor);
   }, [survivor]);
 
+
   return (
     <>
       {infectedSurvivor && (
@@ -75,8 +76,8 @@ const SelectedSurvivor = ({
           />
           <p>Skills:</p>
           <SkillsContainer>
-             {infectedSurvivor.skills.map((skill) => (
-            <SurvivorStats key={skill.rate}>
+             {infectedSurvivor.skills.map((skill, i) => (
+            <SurvivorStats key={i}>
               <Text alignment="center" color="green">
                 {skill.skill}
               </Text>
@@ -96,6 +97,7 @@ const SelectedSurvivor = ({
             type="checkbox"
             onChange={() => handleInfect(infectedSurvivor)}
             checked={infectedSurvivor?.isInfected}
+            readOnly={infectedSurvivor?.isInfected}
           />
           <Modal
             context={modalContext}
