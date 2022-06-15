@@ -54,7 +54,15 @@ const Home = () => {
               </Text>
             </div>
           )}
-          {selectedSurvivor && (
+          {loading ? (
+            <Text alignment="center" color="green">
+              Carregando...
+            </Text>
+          ) : error ? (
+            <Text alignment="center" color="green">
+              Houve um erro ao processar a requisição.
+            </Text>
+          ) : (
             <SelectedSurvivor
               onInfectSurvivor={() => handleRefetch()}
               survivor={selectedSurvivor!}

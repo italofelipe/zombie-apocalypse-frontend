@@ -3,9 +3,8 @@ type AxiosHandler = {
     path: "/survivors" | "/survivor";
     params?: string;
   };
-   body: Survivors;
+  body: Survivors;
 };
-
 
 type Skills = {
   skill: Skill;
@@ -14,7 +13,7 @@ type Skills = {
 
 enum Skill {
   cook = "cook",
-  animal_hunt = "animal_hunt",
+  hunt = "hunt",
   shooting = "shooting",
   fighting = "fighting",
   lockpick = "lockpick",

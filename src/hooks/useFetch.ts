@@ -3,7 +3,7 @@ import { axiosGet } from "../services";
 
 const useFetch = () => {
   const [data, setData] = useState<Survivors[]>([]);
-  const [error, setError] = useState(undefined);
+  const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
@@ -25,7 +25,7 @@ const useFetch = () => {
         setData(Object.assign([], newData));
       })
       .catch((err) => {
-        setError(error);
+        setError(true);
       })
       .finally(() => setLoading(false));
   }, [error]);
@@ -51,7 +51,7 @@ const useFetch = () => {
       })
       .catch((err) => {
         console.log("There was an error: ", err);
-        setError(error);
+        setError(true);
       })
       .finally(() => setLoading(false));
   };
