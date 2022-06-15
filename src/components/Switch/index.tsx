@@ -16,6 +16,7 @@ const Switch = ({ isChecked, onCheck }: SwitchProps) => {
         type="radio"
         checked={isChecked}
         onClick={onCheck}
+        data-testid="switch-button"
       />
       <InfectedSurvivorSlider />
     </InfectedSurvivorLabel>
