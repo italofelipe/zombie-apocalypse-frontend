@@ -27,6 +27,39 @@ const Home = () => {
     reFetch();
   }, [reFetch]);
 
+  const handleRendering = () => {
+    if (!selectedSurvivor && !error && !loading) {
+      return (
+        <>
+          <PageTitle>Zombie Apocalypse</PageTitle>
+          <Text alignment="center" color="orange">
+            A list of survivors in a post-apocalyptic world. You can see below
+            wether people you know is still alive or...became mindless zombies!
+          </Text>
+        </>
+      );
+    } else if (error) {
+      return (
+        <>
+          <Text alignment="center" color="green">
+            Houve um erro ao processar a requisição.
+          </Text>
+        </>
+      );
+    } else if (!error && !selectedSurvivor && loading) {
+      <Text alignment="center" color="green">
+        Carregando...
+      </Text>;
+    } else {
+      return (
+        <SelectedSurvivor
+          onInfectSurvivor={() => handleRefetch()}
+          survivor={selectedSurvivor!}
+        />
+      );
+    }
+  };
+
   return (
     <>
       <Head>
@@ -43,32 +76,7 @@ const Home = () => {
           survivors={survivorsList}
           onSelect={(survivor) => handleSelectSurvivor(survivor)}
         />
-        <PageInnerContent>
-          {!selectedSurvivor && (
-            <div>
-              <PageTitle>Zombie Apocalypse</PageTitle>
-              <Text alignment="center" color="orange">
-                A list of survivors in a post-apocalyptic world. You can see
-                below wether people you know is still alive or...became mindless
-                zombies!
-              </Text>
-            </div>
-          )}
-          {loading ? (
-            <Text alignment="center" color="green">
-              Carregando...
-            </Text>
-          ) : error ? (
-            <Text alignment="center" color="green">
-              Houve um erro ao processar a requisição.
-            </Text>
-          ) : (
-            <SelectedSurvivor
-              onInfectSurvivor={() => handleRefetch()}
-              survivor={selectedSurvivor!}
-            />
-          )}
-        </PageInnerContent>
+        <PageInnerContent>{handleRendering()}</PageInnerContent>
       </Main>
     </>
   );

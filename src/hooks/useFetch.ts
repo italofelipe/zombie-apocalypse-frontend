@@ -21,8 +21,7 @@ const useFetch = () => {
       path: "/survivors",
     })
       .then((response) => {
-        const newData = [...response.data];
-        setData(Object.assign([], newData));
+        setData([...response.data]);
       })
       .catch((err) => {
         setError(true);
