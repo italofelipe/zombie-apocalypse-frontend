@@ -6,7 +6,7 @@ const InfectedSurvivorLabel = styled.label`
   display: inline-block;
   width: 3rem;
   height: 1rem;
-  margin-right: 2vw;
+  margin: 0 2vw;
 `;
 const InfectedSurvivorSwitch = styled.input`
   opacity: 0;

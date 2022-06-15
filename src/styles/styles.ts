@@ -72,7 +72,7 @@ const Form = styled.form`
   }
   @media (min-width: ${mediaQueries.smMin}) and (max-width: ${mediaQueries.smMax}) {
     width: 90%;
-    padding: 1rem 3rem;
+    padding: 1rem;
   }
   @media (min-width: ${mediaQueries.mdMin}) and (max-width: ${mediaQueries.mdMax}) {
     width: 100%;
@@ -98,7 +98,7 @@ const ImageContainer = styled.div`
 const FormContainer = styled.div`
   display: flex;
   flex-flow: row;
-  width: 100%;
+  width: 70%;
   justify-content: space-around;
   align-items: center;
 
@@ -110,7 +110,7 @@ const FormContainer = styled.div`
     }
   }
 
-  @media (min-width: ${mediaQueries.mdMin}) and (max-width: ${mediaQueries.mdMax}) {
+  @media (min-width: ${mediaQueries.mdMin}) {
     &:nth-child(2) {
       justify-content: space-between;
     }
@@ -148,6 +148,7 @@ const FormInner = styled.div<IFormInner>`
 const InputLabel = styled.label`
   color: ${colors.orangeOne};
   align-self: baseline;
+  margin-left: 0.5rem;
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.xsMax}) {
     font-size: 0.75rem;
   }
