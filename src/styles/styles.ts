@@ -30,10 +30,24 @@ const PageTitle = styled.h1`
 type IText = {
   color: "green" | "purple" | "orange";
   alignment: "left" | "center" | "right";
+  size?: "xs" | "sm" | "md" | "lg";
 };
 
 const Text = styled.p<IText>`
-  font-size: 1rem;
+  font-size: ${({ size }) => {
+    switch (size) {
+      case "xs":
+        return "0.3rem";
+      case "sm":
+        return "0.45rem";
+      case "md":
+        return "0.55rem";
+      case "lg":
+        return "0.75rem";
+      default:
+        return "1rem";
+    }
+  }};
   line-height: 1.4;
   text-align: ${({ alignment }) => alignment};
   color: ${({ color }) =>
@@ -131,8 +145,10 @@ const FormInner = styled.div<IFormInner>`
 `;
 
 const InputLabel = styled.label`
+  color: ${colors.orangeOne};
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.xsMax}) {
-    font-size: 10px;
+    font-size: 0.75rem;
+    align-self: baseline;
   }
   margin: 0 1rem;
 `;
@@ -161,6 +177,10 @@ const Input = styled.input`
   &:focus {
     border-bottom: 2px solid ${colors.greenOne};
     border: none;
+  }
+  &::placeholder {
+    font-size: 0.6rem;
+    color: white;
   }
 `;
 

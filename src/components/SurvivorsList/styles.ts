@@ -10,6 +10,7 @@ const Aside = styled.aside`
   align-items: baseline;
   @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.mdMin}) {
     width: 100%;
+    overflow: auto;
   }
 `;
 
@@ -22,6 +23,20 @@ const SurvivorsItem = styled.div`
     }
   }
 `;
+const SwitchContainer = styled.div`
+  display: flex;
+  flex-flow: row;
+  width: 27vw;
+  align-items: center;
+  justify-content: flex-end;
+  label {
+    margin-right: 2vw;
+  }
 
-export { Aside, SurvivorsItem };
+  @media (min-width: ${mediaQueries.xsMin}) and (max-width: ${mediaQueries.mdMin}) {
+    width: 76vw;
+  }
+`;
+
+export { Aside, SurvivorsItem, SwitchContainer };
 
