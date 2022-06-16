@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { axiosPut } from "../../services";
 import { InputLabel, Text } from "../../styles/styles";
-import Modal from "../Modal/Modal";
+import Modal from "../Modal";
 import {
   CardLower,
   Checkbox,
@@ -77,7 +77,9 @@ const SelectedSurvivor = ({
             width={400}
             height={400}
           />
-          <Text alignment="center" color="green">Skills:</Text>
+          <Text alignment="center" color="green">
+            Skills:
+          </Text>
           <SkillsContainer>
             {infectedSurvivor.skills.map((skill, i) => (
               <SurvivorStats key={i}>

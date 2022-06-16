@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styled from "styled-components";
 import { colors } from "../../styles/colors";
 import { mediaQueries } from "../../styles/mediaQueries";
@@ -49,10 +48,6 @@ const CardLower = styled.div`
   flex-flow: row;
   justify-content: space-between;
 `;
-const NextImage = styled(Image)`
-  max-width: 50vw !important;
-  max-height: 50vh !important;
-`;
 
 const SkillsContainer = styled.div`
   display: flex;
@@ -69,6 +64,5 @@ export {
   SurvivorCard,
   SurvivorContainer,
   SurvivorStats,
-  NextImage,
 };
 
