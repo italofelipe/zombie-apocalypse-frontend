@@ -13,11 +13,5 @@ describe("Tests the SurvivorList component", () => {
   it("Should enable the button once the user types something", () => {
     cy.get("input[data-testid='search-survivor-input']").type("bear");
     cy.get("button").should("be.enabled").click();
-
   });
-
-  it("Should filter based on previous test input", () => {
-    cy.get("button").click();
-    cy.get("div[title='bear']").should("exist")
-  })
 });
