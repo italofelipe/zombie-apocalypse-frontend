@@ -34,7 +34,7 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
    * @returns A survivor, based on user's input
    */
   const filterSurvivor = () => {
-    setSearchFilteredSurvivorsError(false)
+    setSearchFilteredSurvivorsError(false);
     const filter = survivors.find((survivor) =>
       survivor.name.toLocaleLowerCase().includes(searchInput.toLowerCase())
     );
@@ -83,7 +83,11 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
             key={infectedSurvivor.id}
             onClick={() => onSelect(infectedSurvivor)}
           >
-            <Text alignment="center" color="green">
+            <Text
+              title={infectedSurvivor.name}
+              alignment="center"
+              color="green"
+            >
               {infectedSurvivor.name}
             </Text>
           </SurvivorsItem>
@@ -98,7 +102,7 @@ const SurvivorsList = ({ onSelect, survivors }: SurvivorsListProps) => {
   return (
     <Aside>
       <SwitchContainer>
-      <Text size="lg" alignment="right" color="orange">
+        <Text size="lg" alignment="right" color="orange">
           Todos
         </Text>
         <Switch
