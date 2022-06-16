@@ -18,6 +18,7 @@ const Modal = ({ context, handleDisplay, isOpen }: ModalProps) => {
             icon={faClose}
             onClick={() => handleDisplay()}
             title="Limpar busca"
+            data-testid="close-modal-button"
           />
         </ModalHeader>
         {context === "success" ? (
